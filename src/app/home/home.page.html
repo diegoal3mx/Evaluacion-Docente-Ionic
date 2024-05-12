@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Evaluación Docente </ion-title>
+    <ion-button (click)="logout()">Cerrar Sesión</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-input
+      label="Username: "
+      [(ngModel)]="username"
+      name="username"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input
+      label="Password: "
+      [(ngModel)]="password"
+      name="password"
+    ></ion-input>
+  </ion-item>
+
+  <ion-button (click)="login(username, password)">Iniciar Sesión</ion-button>
+  <ion-button (click)="read()">Leer usuarios</ion-button>
+</ion-content>
