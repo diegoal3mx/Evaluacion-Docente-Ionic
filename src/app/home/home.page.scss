@@ -25,3 +25,18 @@
 #container a {
   text-decoration: none;
 }
+
+.custom-buton {
+  --color: rgb(216, 110, 44);
+  --border-radius: 8px!important; 
+  margin-right: 10px;
+}
+
+.custom-input{
+  margin-left: 20px;
+  //margin-right: 20px;
+  //margin-right: 20px;
+  //width: fit-content;
+  --border-color: rgb(216, 110, 44);
+  color: rgb(216, 110, 44);
+}

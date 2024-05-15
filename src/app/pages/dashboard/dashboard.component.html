@@ -1,3 +1,48 @@
-<p>
-  dashboard works!
-</p>
+<!-- 
+  Autores: 
+    Valeria Baeza Morales
+    Saul Iván Campos Solís
+    Diego Alejandro Juarez Maldonado
+    Marcos Uriel Resendiz Medina
+
+  Fecha: 016 Mayo 2023
+  Universidad La Salle Bajío
+  Materia: Desarrollo móvil con HTML
+-->
+
+<!--IONIC HEADER-->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Docentes A Evaluar </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="logout()"  fill="clear" class="custom-buton">
+        <ion-icon slot="icon-only" name="log-out-outline" ></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title >Docentes A Evaluar</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<!--BODY-->
+  <body>
+    
+      <ion-card *ngFor="let maestro of maestros; let i = index" style="margin: 35px;" class="custom-card">
+        <ion-card-header>
+          <ion-card-title class="letra-blanca">{{maestro.nombre}}</ion-card-title>
+          <ion-card-subtitle>{{maestro.materia}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          Jueves de 5:00 a 7:00. Viernes de 2:00 a 3:00
+        </ion-card-content>
+        <ion-card-content>
+          <ion-button (click)="irAEvaluacion(maestro.id)" class="custom-buton" fill="outline" [disabled]="checkUserVotos()" >Evaluar</ion-button>
+        </ion-card-content>
+      </ion-card>
+      <br>
+      <br>
+  </body>

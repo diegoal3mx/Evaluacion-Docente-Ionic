@@ -10,12 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { defineCustomElements as jeepSqlite } from 'jeep-sqlite/loader';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 
 jeepSqlite(window);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DashboardComponent],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

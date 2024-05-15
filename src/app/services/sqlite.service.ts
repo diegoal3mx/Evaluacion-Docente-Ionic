@@ -10,6 +10,8 @@ import { Device } from '@capacitor/device';
 import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject } from 'rxjs';
 import { usuario as usuarioInterface } from '../../interfaces/usuario';
+import { maestro as maestroInterface } from 'src/interfaces/maestro';
+import { voto as votosInterface} from 'src/interfaces/voto';
 
 interface usuario {
   id: string;
@@ -26,6 +28,7 @@ export class SqliteService {
   public isIOS: boolean;
   public dbName: string;
   public usuarios: usuarioInterface[];
+  public votos:votosInterface[];
 
   constructor(private http: HttpClient) {
     this.dbready = new BehaviorSubject(false);
@@ -132,6 +135,74 @@ export class SqliteService {
   }
 }
 
+async createMaestro(id: string, nombre: string, materia: string) {
+  let sql = `
+  INSERT INTO maestro VALUES(?, ?, ?)
+  `;
+
+  try {
+    // Obtengo la base de datos
+    const dbName = await this.getDbName();
+    // Ejecutamos la sentencia
+    return CapacitorSQLite.executeSet({
+      database: dbName,
+      set: [
+        {
+          statement: sql,
+          values: [
+            id, nombre, materia
+          ]
+        }
+      ],transaction:true
+    }).then((changes: capSQLiteChanges) => {
+      if (this.isWeb) {
+        CapacitorSQLite.saveToStore({ database: dbName });
+      }
+      
+      return changes;
+    }).catch(err => Promise.reject(err))
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+async createVoto(id:string, idUsuario:string, idMaestro:string, puntuacion:number){
+  let sql = `
+  INSERT INTO voto VALUES(?, ?, ?, ?)
+  `;
+
+  try {
+    // Obtengo la base de datos
+    console.log('entra a atry sqlito');
+    const dbName = await this.getDbName();
+    console.log('despues de getdb'+dbName);
+    // Ejecutamos la sentencia
+    return CapacitorSQLite.executeSet({
+      database: dbName,
+      set: [
+        {
+          statement: sql,
+          values: [
+            id, idUsuario, idMaestro, puntuacion
+          ]
+        }
+      ],transaction:true
+    }).then((changes: capSQLiteChanges) => {
+      console.log('entra a then');
+      if (this.isWeb) {
+        CapacitorSQLite.saveToStore({ database: dbName });
+      }
+      
+      return changes;
+    }).catch(err => Promise.reject(err))
+  } catch (err) {
+    console.log('Error al crear voto sqlito');
+    console.error(err);
+    throw err;
+  }
+}
+
 
   async read() {
     const sql = 'SELECT * FROM usuario';
@@ -153,6 +224,104 @@ export class SqliteService {
           usuarios.push(usuario);
         }
         return usuarios;
+      })
+      .catch((err) => Promise.reject(err));
+  }
+
+
+
+  async readMaestros() {
+    const sql = 'SELECT * FROM maestro';
+    const dbName = await this.getDbName();
+    return CapacitorSQLite.query({
+      database: dbName,
+      statement: sql,
+      values: [],
+    })
+    .then((response: capSQLiteValues) => {
+        let maestros: maestroInterface[] = [];
+
+        if (this.isIOS && response.values.length > 0) {
+          response.values.shift();
+        }
+
+        for (let index = 0; index < response.values.length; index++) {
+          const maestro = response.values[index];
+          maestros.push(maestro);
+        }
+        return maestros;
+      })
+      .catch((err) => Promise.reject(err));
+  }
+
+  async findMaestroById(id: string) {
+    const sql = 'SELECT * FROM maestro WHERE id = ?';
+    const dbName = await this.getDbName();
+    return CapacitorSQLite.query({
+      database: dbName,
+      statement: sql,
+      values: [id], // Pasar el ID como valor para la consulta
+    })
+    .then((response: capSQLiteValues) => {
+        let maestro: maestroInterface = null;
+  
+        if (this.isIOS && response.values.length > 0) {
+          response.values.shift();
+        }
+  
+        for (let index = 0; index < response.values.length; index++) {
+          const foundMaestro = response.values[index];
+          maestro=foundMaestro;
+        }
+        return maestro;
+      })
+      .catch((err) => Promise.reject(err));
+  }
+
+  async readVotos() {
+    const sql = 'SELECT * FROM voto';
+    const dbName = await this.getDbName();
+    return CapacitorSQLite.query({
+      database: dbName,
+      statement: sql,
+      values: [],
+    })
+    .then((response: capSQLiteValues) => {
+        let votos: votosInterface[] = [];
+
+        if (this.isIOS && response.values.length > 0) {
+          response.values.shift();
+        }
+
+        for (let index = 0; index < response.values.length; index++) {
+          const voto = response.values[index];
+          votos.push(voto);
+        }
+        return votos;
+      })
+      .catch((err) => Promise.reject(err));
+  }
+
+  async findVotosById(id:string){
+    const sql = 'SELECT * FROM maestro WHERE id = ?';
+    const dbName = await this.getDbName();
+    return CapacitorSQLite.query({
+      database: dbName,
+      statement: sql,
+      values: [id], // Pasar el ID como valor para la consulta
+    })
+    .then((response: capSQLiteValues) => {
+        let votos: votosInterface = null;
+  
+        if (this.isIOS && response.values.length > 0) {
+          response.values.shift();
+        }
+  
+        for (let index = 0; index < response.values.length; index++) {
+          const foundVotos = response.values[index];
+          votos=foundVotos;
+        }
+        return votos;
       })
       .catch((err) => Promise.reject(err));
   }

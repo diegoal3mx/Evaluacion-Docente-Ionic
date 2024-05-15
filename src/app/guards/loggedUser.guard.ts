@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 var prov;
-export const AuthGuard: CanActivateFn = (route, state) => {
+export const loggedUser: CanActivateFn = (route, state) => {
   const router: Router = inject(Router)
   var loggedUser = inject(AuthService).getLoggedUser().subscribe(user => { // Esto mostrará el usuario logueado actualmente
     prov = user;
@@ -13,10 +13,9 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     
 
   if(loggedUser !== null){
-    //console.log(loggedUser)
-    return true
-  }else {
-    router.navigate(['/'])
+    router.navigate(['/dashboard'])
     return false
+  }else {
+    return true
   }
 }
