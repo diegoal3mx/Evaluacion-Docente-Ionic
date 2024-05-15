@@ -13,9 +13,9 @@
 <!--IONIC HEADER-->
 <ion-header [translucent]="true">
   <ion-toolbar class="black-header">
-    <ion-title> Docentes A Evaluar </ion-title>
+    <ion-title (click)="imprimirVotos()"> Docentes A Evaluar </ion-title>
     <ion-buttons slot="secondary">
-      <ion-button (click)="logout()"  fill="clear" class="custom-buton">
+      <ion-button (click)="logout()"  fill="clear" class="custom-icon">
         <ion-icon slot="icon-only" name="log-out-outline" ></ion-icon>
         </ion-button>
     </ion-buttons>
@@ -27,7 +27,15 @@
       <ion-title >Docentes A Evaluar</ion-title>
     </ion-toolbar>
   </ion-header>
-      <ion-card *ngFor="let maestro of maestros; let i = index" style="margin: 35px;" class="custom-card">
+
+  <!--BOTÓN PARA VER GRÁFICAS-->
+    <br>
+    <div class="button-container">
+      <ion-button  (click)="irAGrafica()" class="button-graf" fill="outline" >Ver Gráficas...</ion-button>
+    </div>
+
+  <!--LISTA DE MAESTROS-->
+      <ion-card *ngFor="let maestro of maestros; let i = index" style="margin-bottom: 15px; margin-left: 8vw; margin-right:8vw;" class="custom-card">
         <ion-card-header>
           <ion-card-title class="letra-blanca">{{maestro.nombre}}</ion-card-title>
           <ion-card-subtitle>{{maestro.materia}}</ion-card-subtitle>
@@ -36,7 +44,7 @@
           Jueves de 5:00 a 7:00. Viernes de 2:00 a 3:00
         </ion-card-content>
         <ion-card-content>
-          <ion-button (click)="irAEvaluacion(maestro.id)" class="custom-buton" fill="outline"  >Evaluar</ion-button>
+          <ion-button (click)="irAEvaluacion(maestro.id)"  class="custom-buton" fill="outline" [disabled]="estados[i]">Evaluar</ion-button>
         </ion-card-content>
       </ion-card>
 </ion-content>

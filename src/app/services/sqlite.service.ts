@@ -319,8 +319,9 @@ async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
         }
   
         for (let index = 0; index < response.values.length; index++) {
-          const foundVotos = response.values[index];
-          votos=foundVotos;
+          console.log()
+          const foundVoto = response.values[index];
+          votos.push(foundVoto);
         }
         return votos;
       })

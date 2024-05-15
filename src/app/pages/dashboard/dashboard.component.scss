@@ -8,6 +8,14 @@
     padding: 12px;
   }
   
+  .button-graf{
+    min-width: 80%;
+    color: rgb(216, 110, 44);
+    --border-color: rgb(216, 110, 44);
+    --border-radius: 8px; 
+    margin-right: 30px;
+  }
+
   .custom-buton {
     color: rgb(216, 110, 44);
     --border-color: rgb(216, 110, 44);
@@ -38,3 +46,17 @@
     --background: rgb(40, 40, 40);
     --color: white;
   }
+
+  .button-container{
+    padding-left: 25px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .custom-icon{
+    color: rgb(216, 110, 44);
+    --border-color: rgb(216, 110, 44);
+    --border-radius: 8px; 
+    //margin-right: 0px;
+  }
+  
