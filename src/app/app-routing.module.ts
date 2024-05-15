@@ -24,6 +24,10 @@ const routes: Routes = [
   {
     path: 'evaluacion/:id',
     loadChildren: () => import('./pages/evaluacion/evaluacion.module').then( m => m.EvaluacionPageModule)
+  },
+  {
+    path: 'results',
+    loadChildren: () => import('./pages/results/results.module').then( m => m.ResultsPageModule)
   }
 ];
 
