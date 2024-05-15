@@ -1,25 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title> Evaluación Docente </ion-title>
-  </ion-toolbar>
+     </ion-toolbar>
 </ion-header>
 
-  <ion-content [fullscreen]="true" class="main">
-  
-    <br>
+<ion-content [fullscreen]="true" class="main">
+  <div class="user-inputs">
     <div class="contenedor-input">
-      <ion-input color="danger" [(ngModel)]="username" name="username" class="custom-input" label="Username:" label-placement="floating" fill="outline" placeholder="Inserta tu username"></ion-input>
+      <ion-input [(ngModel)]="username" name="username" class="custom-input" label="Username:" label-placement="floating" fill="outline" placeholder="Inserta tu username"></ion-input>
     </div>
     <div class="contenedor-input">
       <ion-input [(ngModel)]="password" name="password" class="custom-input" label="Password:" label-placement="floating" fill="outline" placeholder="Inserta tu password" type="password"></ion-input>
     </div>
-  
-    <br>
+    <br><br>
     <div class="button-container">
-      <ion-button class="custom-buton" (click)="login(username, password)" fill="outline">Iniciar Sesión</ion-button>
+      <ion-button class="custom-button" (click)="login(username, password)" fill="outline">Iniciar Sesión</ion-button>
       <!--
-        <ion-button class="custom-buton" [(ngModel)]="password" name="password" (click)="readMaestros()" fill="outline">Leer usuarios</ion-button>
+        <ion-button class="custom-btuton" [(ngModel)]="password" name="password" (click)="readMaestros()" fill="outline">Leer usuarios</ion-button>
       -->
     </div>
-  </ion-content>
+  </div>
+</ion-content>
 
