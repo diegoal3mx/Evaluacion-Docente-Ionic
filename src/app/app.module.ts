@@ -19,7 +19,10 @@ jeepSqlite(window);
   declarations: [AppComponent, DashboardComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      scrollPadding: false,
+      scrollAssist: false
+    }),
     AppRoutingModule,
     HttpClientModule,
   ],
