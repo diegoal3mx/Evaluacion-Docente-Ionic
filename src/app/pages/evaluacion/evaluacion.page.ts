@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SqliteService } from 'src/app/services/sqlite.service';
 import { maestro } from 'src/interfaces/maestro';
 import { ActivatedRoute, Router } from '@angular/router';
-import { votosIniciales, voto as votosInterface} from 'src/interfaces/voto';
+import { voto, votosIniciales, voto as votosInterface} from 'src/interfaces/voto';
 import { loggedUser } from 'src/app/guards/loggedUser.guard';
 import { usuario } from 'src/interfaces/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +14,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class EvaluacionPage implements OnInit {
   selectedValues: number[] = [];
+
+  votos : voto[] = [];
+
   preguntas: String[] = [
     '¿El docente muestra interés para que los estudiantes aprendan?',
     '¿El docente tiene una buena relación con los estudiantes en el aula de clase?',
@@ -76,7 +79,7 @@ export class EvaluacionPage implements OnInit {
         console.log(p);
         index++;
         console.log('antes de create')
-        await this.sqlite.createVoto('m'+index, this.loggedUser.id, this.foundMaestro.id, this.selectedValues[index-1]);
+        await this.sqlite.createVoto(0, this.loggedUser.id, this.foundMaestro.id, this.selectedValues[index-1]);
       console.log('Voto creado');
       }
       var res = await this.sqlite.readVotos();
@@ -88,5 +91,20 @@ export class EvaluacionPage implements OnInit {
       console.error('Error al crear voto');
     }
   
+  }
+
+  readVotos() {
+    // Leemos los datos de la base de datos
+    this.sqlite
+      .readVotos()
+      .then((votos: voto[]) => {
+        this.votos = votos;
+        console.log('Leido');
+        console.log(this.votos);
+      })
+      .catch((err) => {
+        console.error(err);
+        console.error('Error al leer');
+      });
   }
 }

@@ -23,7 +23,7 @@
     {
       "name": "voto",
       "schema": [
-        { "column": "id", "value": "TEXT NOT NULL PRIMARY KEY" },
+        { "column": "id", "value": "INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT" },
         { "column": "idUsuario", "value": "TEXT NOT NULL" },
         { "column": "idMaestro", "value": "TEXT NOT NULL" },
         { "column": "puntuacion", "value": "INTEGER NOT NULL" },
