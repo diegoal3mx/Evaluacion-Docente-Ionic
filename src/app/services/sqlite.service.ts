@@ -167,9 +167,9 @@ async createMaestro(id: string, nombre: string, materia: string) {
   }
 }
 
-async createVoto(id:number, idUsuario:string, idMaestro:string, puntuacion:number){
+async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
   let sql = `
-  INSERT INTO voto VALUES(?, ?, ?, ?)
+  INSERT INTO voto (idUsuario, idMaestro, puntuacion) VALUES(?, ?, ?)
   `;
 
   try {
@@ -184,7 +184,7 @@ async createVoto(id:number, idUsuario:string, idMaestro:string, puntuacion:numbe
         {
           statement: sql,
           values: [
-            id, idUsuario, idMaestro, puntuacion
+            idUsuario, idMaestro, puntuacion
           ]
         }
       ],transaction:true
@@ -304,7 +304,7 @@ async createVoto(id:number, idUsuario:string, idMaestro:string, puntuacion:numbe
   }
 
   async findVotosById(id:string){
-    const sql = 'SELECT * FROM maestro WHERE id = ?';
+    const sql = 'SELECT * FROM voto WHERE idUsuario = ?';
     const dbName = await this.getDbName();
     return CapacitorSQLite.query({
       database: dbName,
@@ -312,7 +312,7 @@ async createVoto(id:number, idUsuario:string, idMaestro:string, puntuacion:numbe
       values: [id], // Pasar el ID como valor para la consulta
     })
     .then((response: capSQLiteValues) => {
-        let votos: votosInterface = null;
+        let votos: votosInterface[] = null;
   
         if (this.isIOS && response.values.length > 0) {
           response.values.shift();

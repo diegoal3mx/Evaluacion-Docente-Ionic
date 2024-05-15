@@ -1,5 +1,5 @@
 export interface voto {
-    id: string;
+    id: number;
     idUsuario: string;
     idMaestro: string;
     puntuacion: number;

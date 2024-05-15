@@ -27,16 +27,15 @@ export class DashboardComponent  implements OnInit {
           this.loggedUser = user;
         });
         this.readMaestros()
-      }
-    });
-    this.sqlite.dbready.subscribe(async(ready) => {
-      if (ready) {
-        this.votos.push(await this.findVotosById(this.route.snapshot.paramMap.get('id')));
+        const foundVotos = await this.findVotosById(this.loggedUser.id);
+        console.log('imprimir votos on init')
+        console.log(foundVotos);
         if(!this.votos){
          this.router.navigate(['dashboard'])
         }
       }
     });
+
 
   }
 
@@ -65,19 +64,19 @@ export class DashboardComponent  implements OnInit {
     console.log()
   }
 
-  findVotosById(id:string): Promise<voto> {
+  findVotosById(id:string): Promise<voto[]> {
     return this.sqlite
       .findVotosById(id)
-      .then((votos) => {
-        this.votos.concat(votos);
-        console.log('Leido voto');
+      .then((votos: voto[]) => {
+        this.votos = votos;
+        console.log('Leido');
         console.log(id)
         console.log(this.votos);
-        return this.votos;
+        return votos;
       })
       .catch((err) => {
         console.error(err);
-        console.error('Error al leer votos');
+        console.error('Error al leer');
         return null;
       });
   }

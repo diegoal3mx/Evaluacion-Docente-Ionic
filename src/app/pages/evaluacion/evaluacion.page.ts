@@ -33,6 +33,8 @@ export class EvaluacionPage implements OnInit {
   constructor(private authService: AuthService, private sqlite: SqliteService, private route:ActivatedRoute, private router: Router) {
     this.preguntas.forEach(() =>{
       this.selectedValues.push(1);
+      console.log('selected values')
+      console.log(this.selectedValues)
     })
    }
 
@@ -75,21 +77,27 @@ export class EvaluacionPage implements OnInit {
     try {
       // Creamos un elemento en la base de datos
       let index = 0; 
-      for(let p in this.preguntas){
-        console.log(p);
         index++;
         console.log('antes de create')
-        await this.sqlite.createVoto(0, this.loggedUser.id, this.foundMaestro.id, this.selectedValues[index-1]);
+        console.log(this.loggedUser.id)
+        console.log(this.foundMaestro.id)
+        var puntuacion = 0;
+        for (let i = 0; i < this.selectedValues.length; i++) {
+          // Sumamos el valor actual al total
+          puntuacion += this.selectedValues[i];
+        }
+        await this.sqlite.createVoto(this.loggedUser.id, this.foundMaestro.id, puntuacion);
       console.log('Voto creado');
-      }
       var res = await this.sqlite.readVotos();
       console.log('imprimiendo voto');
       console.log(res);
+      this.router.navigate(['dashboard'])
     } catch (err) {
       console.error(err);
       console.log(err)
       console.error('Error al crear voto');
     }
+
   
   }
 
