@@ -167,7 +167,7 @@ async createMaestro(id: string, nombre: string, materia: string) {
   }
 }
 
-async createVoto(id:string, idUsuario:string, idMaestro:string, puntuacion:number){
+async createVoto(id:number, idUsuario:string, idMaestro:string, puntuacion:number){
   let sql = `
   INSERT INTO voto VALUES(?, ?, ?, ?)
   `;
@@ -297,6 +297,7 @@ async createVoto(id:string, idUsuario:string, idMaestro:string, puntuacion:numbe
           const voto = response.values[index];
           votos.push(voto);
         }
+        console.log(votos);
         return votos;
       })
       .catch((err) => Promise.reject(err));
