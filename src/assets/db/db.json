@@ -7,34 +7,33 @@
     {
       "name": "usuario",
       "schema": [
-        {
-          "column": "id",
-          "value": "TEXT NOT NULL PRIMARY KEY"
-        },
-        {
-          "column": "username",
-          "value": "TEXT NOT NULL"
-        },
-        {
-          "column": "password",
-          "value": "TEXT NOT NULL"
-        }
+        { "column": "id", "value": "TEXT NOT NULL PRIMARY KEY" },
+        { "column": "username", "value": "TEXT NOT NULL" },
+        { "column": "password", "value": "TEXT NOT NULL" }
       ]
     },
     {
       "name": "maestro",
       "schema": [
+        { "column": "id", "value": "TEXT NOT NULL PRIMARY KEY" },
+        { "column": "nombre", "value": "TEXT NOT NULL" },
+        { "column": "materia", "value": "TEXT NOT NULL" }
+      ]
+    },
+    {
+      "name": "voto",
+      "schema": [
+        { "column": "id", "value": "TEXT NOT NULL PRIMARY KEY" },
+        { "column": "idUsuario", "value": "TEXT NOT NULL" },
+        { "column": "idMaestro", "value": "TEXT NOT NULL" },
+        { "column": "puntuacion", "value": "INTEGER NOT NULL" },
         {
-          "column": "id",
-          "value": "TEXT NOT NULL PRIMARY KEY"
+          "foreignkey": "idUsuario",
+          "value": "REFERENCES usuario(id) ON DELETE CASCADE"
         },
         {
-          "column": "nombre",
-          "value": "TEXT NOT NULL"
-        },
-        {
-          "column": "materia",
-          "value": "TEXT NOT NULL"
+          "foreignkey": "idMaestro",
+          "value": "REFERENCES maestro(id) ON DELETE CASCADE"
         }
       ]
     }

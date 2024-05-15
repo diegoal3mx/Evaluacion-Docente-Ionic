@@ -27,18 +27,8 @@
       <ion-title size="large">evaluacion</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
-
-<!--BODY-->
-<body>
-
   <!--EVALUACIÓN-->
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <ion-title class="letra-blanca" style="margin-left: 15px; font-weight: 400; font-size:x-large;">
+  <ion-title class="letra-blanca" style="margin-left: 15px; font-weight: 400; font-size:x-large; margin-top: 10px;">
     {{maestro.nombre}}
   </ion-title>
   <ion-row>
@@ -47,8 +37,6 @@
     </ion-label>
     </ion-row>
 
-  
-  <br>
   <ion-card class="custom-card"  style="--border-color: rgb(216, 110, 44);">
     
     <ion-card-content *ngFor="let pregunta of preguntas; let i=index;">
@@ -65,6 +53,4 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
-  <br>
-  <br>
-</body>
+</ion-content>

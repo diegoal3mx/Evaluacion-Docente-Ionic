@@ -9,9 +9,8 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
- body{
-    overflow :scroll; 
-    background-color: black;
+ ion-content{
+    --background: black;
  }
 
 /* Core CSS required for Ionic components to work properly */
