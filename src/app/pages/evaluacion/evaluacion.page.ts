@@ -24,7 +24,7 @@ export class EvaluacionPage implements OnInit {
     '¿El docente demuestra dominio en su área o disciplina?',
     '¿El docente promueve y facilita el aprendizaje de los contenidos de los estudiantes?'
   ];
-  public maestro: maestro = { id: '', nombre: '', materia: '' };
+  public maestro: maestro = { id: '', nombre: '', materia: '', horario: '' };
   public foundMaestro: maestro
   loggedUser: usuario
   idMaestro:string='';
@@ -33,8 +33,6 @@ export class EvaluacionPage implements OnInit {
   constructor(private authService: AuthService, private sqlite: SqliteService, private route:ActivatedRoute, private router: Router) {
     this.preguntas.forEach(() =>{
       this.selectedValues.push(1);
-      console.log('selected values')
-      console.log(this.selectedValues)
     })
    }
 
@@ -61,14 +59,9 @@ export class EvaluacionPage implements OnInit {
       .findMaestroById(id)
       .then((maestro: maestro) => {
         this.maestro = maestro;
-        console.log('Leido');
-        console.log(id)
-        console.log(this.maestro);
         return maestro;
       })
       .catch((err) => {
-        console.error(err);
-        console.error('Error al leer');
         return null;
       });
   }
@@ -78,9 +71,6 @@ export class EvaluacionPage implements OnInit {
       // Creamos un elemento en la base de datos
       let index = 0; 
         index++;
-        console.log('antes de create')
-        console.log(this.loggedUser.id)
-        console.log(this.foundMaestro.id)
         var puntuacion = 0;
         for (let i = 0; i < this.selectedValues.length; i++) {
           // Sumamos el valor actual al total
@@ -88,14 +78,9 @@ export class EvaluacionPage implements OnInit {
         }
         puntuacion/=5;
         await this.sqlite.createVoto(this.loggedUser.id, this.foundMaestro.id, puntuacion);
-      console.log('Voto creado');
-      var res = await this.sqlite.readVotos();
-      console.log('imprimiendo voto');
-      console.log(res);
       this.router.navigate(['dashboard'])
     } catch (err) {
       console.error(err);
-      console.log(err)
       console.error('Error al crear voto');
     }
 
@@ -108,8 +93,6 @@ export class EvaluacionPage implements OnInit {
       .readVotos()
       .then((votos: voto[]) => {
         this.votos = votos;
-        console.log('Leido');
-        console.log(this.votos);
       })
       .catch((err) => {
         console.error(err);

@@ -17,7 +17,8 @@
       "schema": [
         { "column": "id", "value": "TEXT NOT NULL PRIMARY KEY" },
         { "column": "nombre", "value": "TEXT NOT NULL" },
-        { "column": "materia", "value": "TEXT NOT NULL" }
+        { "column": "materia", "value": "TEXT NOT NULL" },
+        { "column": "horario", "value": "TEXT NOT NULL" }
       ]
     },
     {
