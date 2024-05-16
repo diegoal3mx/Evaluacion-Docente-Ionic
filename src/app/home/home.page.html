@@ -1,8 +1,9 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Evaluación Docente </ion-title>
-     </ion-toolbar>
+  <ion-toolbar class="black-header">
+    <ion-title > Evaluación Docentes </ion-title>
+  </ion-toolbar>
 </ion-header>
+<ion-content [fullscreen]="true" [scrollY]="true">
 
 <ion-content [fullscreen]="true" class="main">
   <div class="user-inputs">
@@ -14,10 +15,10 @@
     </div>
     <br><br>
     <div class="button-container">
-      <ion-button class="custom-button" (click)="login(username, password)" fill="outline">Iniciar Sesión</ion-button>
-      <!--
-        <ion-button class="custom-btuton" [(ngModel)]="password" name="password" (click)="readMaestros()" fill="outline">Leer usuarios</ion-button>
-      -->
+      <ion-button id="open-toast" class="custom-button" (click)="login(username, password)" fill="outline">Iniciar Sesión</ion-button>
+      <div>
+        <ion-toast [isOpen]="isToastOpen" (didDismiss)="setOpen(false)" message="El usuario y/o la contraseña son incorrectos" [duration]="5000"></ion-toast>
+      </div>
     </div>
   </div>
 </ion-content>

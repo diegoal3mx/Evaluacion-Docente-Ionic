@@ -14,7 +14,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button default-href="/dashboard" (click)="guardarVotos()"></ion-back-button>
+      <ion-back-button default-href="/dashboard"></ion-back-button>
     </ion-buttons>
     <ion-title class="letra-blanca" style=" font-weight: 600; font-size:larger;">
       Evaluación docente
@@ -27,15 +27,18 @@
       <ion-title size="large">evaluacion</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <!--EVALUACIÓN-->
-  <ion-title class="letra-blanca" style="margin-left: 15px; font-weight: 400; font-size:x-large; margin-top: 10px;">
-    {{maestro.nombre}}
-  </ion-title>
-  <ion-row>
-    <ion-label style="margin-left: 35px; color:rgb(175, 175, 175); font-size: larger;">
-      {{maestro.materia}}
-    </ion-label>
-    </ion-row>
+  <div class="title-container">
+    <ion-title class="letra-blanca" style="margin-left: 15px; font-weight: 400; font-size:x-large; margin-top: 10px;">
+      {{maestro.nombre}}
+    </ion-title>
+    <ion-row>
+      <ion-label style="margin-left: 35px; color:rgb(175, 175, 175); font-size: larger;">
+        {{maestro.materia}}
+      </ion-label>
+      </ion-row>
+  </div>
 
   <ion-card class="custom-card"  style="--border-color: rgb(216, 110, 44);">
     
@@ -57,8 +60,7 @@
   <br>
 
   <div class="button-container">
-    <ion-button (click)="guardarVotos()" class="custom-buton" fill="outline" >Evaluar</ion-button>
-    <ion-button (click)="readVotos()" class="custom-buton" fill="outline" >Imprimir</ion-button>
+    <ion-button (click)="guardarVotos()" class="custom-button" fill="outline" >Evaluar</ion-button>
   </div>
   <br>
 </ion-content>

@@ -16,8 +16,13 @@ export class HomePage {
   public usuariosIniciales = usuariosIniciales;
   public maestrosIniciales = maestrosIniciales;
 
+  private initialized: boolean = false;
+
+  isToastOpen = false;
+
   public username: string;
   public password: string;
+  public error: boolean = false;
 
   constructor(
     private sqlite: SqliteService,
@@ -28,10 +33,13 @@ export class HomePage {
   ngOnInit() {
     this.sqlite.dbready.subscribe(async(ready) => {
       if (ready) {
-        await this.createDefaultUsers();
-        await this.createDefaultMaestros();
+        await this.read();
       }
     });
+  }
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 
   async createDefaultUsers() {
@@ -80,19 +88,27 @@ export class HomePage {
     }
   }
 
-  read() {
-    // Leemos los datos de la base de datos
-    this.sqlite
-      .read()
-      .then((usuarios: usuario[]) => {
-        this.usuarios = usuarios;
-        console.log('Leido');
-        console.log(this.usuarios);
-      })
-      .catch((err) => {
-        console.error(err);
-        console.error('Error al leer');
-      });
+  async read() {
+    try {
+      // Leemos los datos de la base de datos
+      const usuarios = await this.sqlite.read();
+      this.usuarios = usuarios;
+  
+      console.log('Leído');
+      console.log(this.usuarios);
+  
+      if (this.usuarios.length > 0) {
+        console.log('Se encontraron usuarios en la base de datos.');
+        // Ejecutar createDefaultUsers() y createDefaultMaestros() solo si hay usuarios existentes
+      } else {
+        console.log('No se encontraron usuarios en la base de datos.');
+        await this.createDefaultUsers();
+        await this.createDefaultMaestros();
+      }
+    } catch (err) {
+      console.error(err);
+      console.error('Error al leer');
+    }
   }
 
   readMaestros() {
@@ -122,9 +138,12 @@ export class HomePage {
             loginUser = element;
             this.auth.setLoggedUser(loginUser);
             this.router.navigate(['/dashboard']);
+            this.setOpen(false)
+          }else {
+            this.setOpen(true)
           }
         });
-
+        
         this.auth.getLoggedUser().subscribe((user) => {
           console.log(user); // Esto mostrará el usuario logueado actualmente
         });

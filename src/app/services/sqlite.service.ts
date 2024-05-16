@@ -303,7 +303,7 @@ async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
       .catch((err) => Promise.reject(err));
   }
 
-  async findVotosById(id:string){
+  async findVotosByIdh(id:string){
     const sql = 'SELECT * FROM voto WHERE idUsuario = ?';
     const dbName = await this.getDbName();
     return CapacitorSQLite.query({
