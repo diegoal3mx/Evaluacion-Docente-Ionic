@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SqliteService } from 'src/app/services/sqlite.service';
 import { maestro } from 'src/interfaces/maestro';
 import { ActivatedRoute, Router } from '@angular/router';
-import { votosIniciales, voto as votosInterface} from 'src/interfaces/voto';
+import { voto, votosIniciales, voto as votosInterface} from 'src/interfaces/voto';
 import { loggedUser } from 'src/app/guards/loggedUser.guard';
 import { usuario } from 'src/interfaces/usuario';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +14,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class EvaluacionPage implements OnInit {
   selectedValues: number[] = [];
+
+  votos : voto[] = [];
+
   preguntas: String[] = [
     '¿El docente muestra interés para que los estudiantes aprendan?',
     '¿El docente tiene una buena relación con los estudiantes en el aula de clase?',
@@ -30,6 +33,8 @@ export class EvaluacionPage implements OnInit {
   constructor(private authService: AuthService, private sqlite: SqliteService, private route:ActivatedRoute, private router: Router) {
     this.preguntas.forEach(() =>{
       this.selectedValues.push(1);
+      console.log('selected values')
+      console.log(this.selectedValues)
     })
    }
 
@@ -72,21 +77,43 @@ export class EvaluacionPage implements OnInit {
     try {
       // Creamos un elemento en la base de datos
       let index = 0; 
-      for(let p in this.preguntas){
-        console.log(p);
         index++;
         console.log('antes de create')
-        await this.sqlite.createVoto('m'+index, this.loggedUser.id, this.foundMaestro.id, this.selectedValues[index-1]);
+        console.log(this.loggedUser.id)
+        console.log(this.foundMaestro.id)
+        var puntuacion = 0;
+        for (let i = 0; i < this.selectedValues.length; i++) {
+          // Sumamos el valor actual al total
+          puntuacion += this.selectedValues[i];
+        }
+        puntuacion/=5;
+        await this.sqlite.createVoto(this.loggedUser.id, this.foundMaestro.id, puntuacion);
       console.log('Voto creado');
-      }
       var res = await this.sqlite.readVotos();
       console.log('imprimiendo voto');
       console.log(res);
+      this.router.navigate(['dashboard'])
     } catch (err) {
       console.error(err);
       console.log(err)
       console.error('Error al crear voto');
     }
+
   
+  }
+
+  readVotos() {
+    // Leemos los datos de la base de datos
+    this.sqlite
+      .readVotos()
+      .then((votos: voto[]) => {
+        this.votos = votos;
+        console.log('Leido');
+        console.log(this.votos);
+      })
+      .catch((err) => {
+        console.error(err);
+        console.error('Error al leer');
+      });
   }
 }

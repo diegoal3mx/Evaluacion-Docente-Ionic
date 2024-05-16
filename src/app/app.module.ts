@@ -12,14 +12,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
+import { NgApexchartsModule } from "ng-apexcharts";
+import { BarsComponent } from './pages/bars/bars.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 jeepSqlite(window);
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent],
+  declarations: [AppComponent, DashboardComponent, BarsComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    NgApexchartsModule,
+    IonicModule.forRoot({
+      scrollPadding: false,
+      scrollAssist: false
+    }),
     AppRoutingModule,
     HttpClientModule,
   ],
