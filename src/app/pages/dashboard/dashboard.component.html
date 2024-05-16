@@ -13,7 +13,7 @@
 <!--IONIC HEADER-->
 <ion-header [translucent]="true">
   <ion-toolbar class="black-header">
-    <ion-title (click)="imprimirVotos()"> Docentes A Evaluar </ion-title>
+    <ion-title> Docentes A Evaluar </ion-title>
     <ion-buttons slot="secondary">
       <ion-button (click)="logout()"  fill="clear" class="custom-icon">
         <ion-icon slot="icon-only" name="log-out-outline" ></ion-icon>
@@ -22,16 +22,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" [scrollY]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title >Docentes A Evaluar</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <!--BOTÓN PARA VER GRÁFICAS-->
     <br>
     <div class="button-container">
-      <ion-button  (click)="irAGrafica()" class="button-graf" fill="outline" >Ver Gráficas...</ion-button>
+      <ion-button (click)="irAGrafica()" class="button-graf" fill="outline" >Ver Gráficas...</ion-button>
     </div>
 
   <!--LISTA DE MAESTROS-->
