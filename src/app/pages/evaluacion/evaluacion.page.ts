@@ -24,7 +24,7 @@ export class EvaluacionPage implements OnInit {
     '¿El docente demuestra dominio en su área o disciplina?',
     '¿El docente promueve y facilita el aprendizaje de los contenidos de los estudiantes?'
   ];
-  public maestro: maestro = { id: '', nombre: '', materia: '' };
+  public maestro: maestro = { id: '', nombre: '', materia: '', horario: '' };
   public foundMaestro: maestro
   loggedUser: usuario
   idMaestro:string='';

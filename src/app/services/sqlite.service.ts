@@ -135,9 +135,9 @@ export class SqliteService {
   }
 }
 
-async createMaestro(id: string, nombre: string, materia: string) {
+async createMaestro(id: string, nombre: string, materia: string, horario:string) {
   let sql = `
-  INSERT INTO maestro VALUES(?, ?, ?)
+  INSERT INTO maestro VALUES(?, ?, ?, ?)
   `;
 
   try {
@@ -150,7 +150,7 @@ async createMaestro(id: string, nombre: string, materia: string) {
         {
           statement: sql,
           values: [
-            id, nombre, materia
+            id, nombre, materia, horario
           ]
         }
       ],transaction:true

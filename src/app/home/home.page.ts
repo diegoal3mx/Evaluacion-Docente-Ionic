@@ -78,7 +78,8 @@ export class HomePage {
       await this.sqlite.createMaestro(
         maestro.id,
         maestro.nombre,
-        maestro.materia
+        maestro.materia,
+        maestro.horario
       );
     } catch (err) {
       console.error(err);
@@ -95,7 +96,6 @@ export class HomePage {
       if (this.usuarios.length > 0) {
         // Ejecutar createDefaultUsers() y createDefaultMaestros() solo si hay usuarios existentes
       } else {
-        console.error('No se encontraron usuarios en la base de datos.');
         await this.createDefaultUsers();
         await this.createDefaultMaestros();
       }

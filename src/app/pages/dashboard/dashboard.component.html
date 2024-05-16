@@ -36,7 +36,7 @@
           <ion-card-subtitle>{{maestro.materia}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          Jueves de 5:00 a 7:00. Viernes de 2:00 a 3:00
+          {{maestro.horario}}
         </ion-card-content>
         <ion-card-content>
           <ion-button (click)="irAEvaluacion(maestro.id)"  class="custom-buton" fill="outline" [disabled]="estados[i]">Evaluar</ion-button>
