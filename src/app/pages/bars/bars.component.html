@@ -25,7 +25,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" [scrollY]="true">
-  <div class="grafica" style="text-align:center" *ngIf="chartOptions">
+  <div class="grafica" *ngIf="chartOptions">
     <apx-chart
       [series]="chartOptions.series"
       [chart]="chartOptions.chart"
