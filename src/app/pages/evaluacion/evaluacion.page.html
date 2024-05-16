@@ -22,12 +22,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">evaluacion</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <!--EVALUACIÓN-->
   <div class="title-container">
     <ion-title class="letra-blanca" style="margin-left: 15px; font-weight: 400; font-size:x-large; margin-top: 10px;">
@@ -49,7 +43,7 @@
             {{pregunta}}
           </ion-col>
           <ion-col>
-            <ion-select aria-label="Selecciona" [(ngModel)]="selectedValues[i]">
+            <ion-select class="custom-select" aria-label="Selecciona" [(ngModel)]="selectedValues[i]">
               <ion-select-option *ngFor="let option of [1, 2, 3, 4, 5]" [value]="option">{{ option }}</ion-select-option>
             </ion-select>
           </ion-col>

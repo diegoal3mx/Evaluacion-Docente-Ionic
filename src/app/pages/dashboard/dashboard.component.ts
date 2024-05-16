@@ -38,22 +38,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log('Entra a ionViewWillEnter')
     this.checkVotos()
   }
 
   async checkVotos(){
     this.estados = []
     this.votos = await this.sqlite.readVotos();
-    console.log('maestros', this.maestros)
     for (var m of this.maestros) {
-      console.log('maestro',m)
       this.estados.push(this.getEstadoBoton(m));
     }
-
-    console.log('estados despues de llenar arreglo:')
-    console.log(this.estados)
-    console.log(this.votos)
   }
 
   readVotos() {
@@ -66,11 +59,6 @@ export class DashboardComponent implements OnInit {
         console.error(err);
         console.error('Error al leer');
       });
-  }
-
-  imprimirVotos(){
-    console.log('imprimiendo votos...')
-    console.log(this.votos)
   }
 
   readMaestros() {
@@ -96,18 +84,14 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.authService.setLoggedUser(null)
     this.router.navigate(['/'])
-    console.log()
   }
 
   
 
   getEstadoBoton(maestro) {
-    console.log('comparando voto.idmaestro con maestro.id')
         for (var v of this.votos) {
-          console.log(v.idMaestro,' ? ',maestro.id)
           if(this.loggedUser.id==v.idUsuario){
             if (v.idMaestro == maestro.id) {
-              console.log('maestro votado: ',maestro.nombre)
               return true;
             }
       }
