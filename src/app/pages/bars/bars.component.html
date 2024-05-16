@@ -15,6 +15,9 @@
   <ion-toolbar class="black-header">
     <ion-title> Resultados </ion-title>
     <ion-buttons slot="secondary">
+      <ion-button (click)="back()"  fill="clear" class="custom-icon">
+        <ion-icon slot="icon-only" name="arrow-back-outline" ></ion-icon>
+      </ion-button>
       <ion-button (click)="logout()"  fill="clear" class="custom-icon">
         <ion-icon slot="icon-only" name="log-out-outline" ></ion-icon>
         </ion-button>

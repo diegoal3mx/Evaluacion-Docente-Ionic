@@ -53,7 +53,7 @@ export class BarsComponent  {
         "#d86e2c",
       ],
       title: {
-        text: "Resultados"
+        text: ""
       },
       xaxis: {
         categories: []
@@ -141,5 +141,9 @@ export class BarsComponent  {
     this.router.navigate(['/']);
     console.log();
   }
-  
+
+  back() {
+    this.router.navigate(['dashboard']);
+    console.log();
+  }
 }
