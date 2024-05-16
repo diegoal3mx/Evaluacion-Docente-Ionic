@@ -48,7 +48,7 @@ export class HomePage {
         await this.create(usuario);
       }
     } catch (Exception) {
-      console.log('Error al crear los usuarios por defecto');
+      console.error('Error al crear los usuarios por defecto');
     }
   }
 
@@ -58,7 +58,7 @@ export class HomePage {
         await this.createMaestro(maestro);
       }
     } catch (Exception) {
-      console.log('Error al crear los maestros por defecto');
+      console.error('Error al crear los maestros por defecto');
     }
   }
 
@@ -66,7 +66,6 @@ export class HomePage {
     try {
       // Creamos un elemento en la base de datos
       await this.sqlite.create(usuario.id, usuario.username, usuario.password);
-      console.log('Usuario creado');
     } catch (err) {
       console.error(err);
       console.error('Error al crear usuario');
@@ -81,7 +80,6 @@ export class HomePage {
         maestro.nombre,
         maestro.materia
       );
-      console.log('Maestro creado');
     } catch (err) {
       console.error(err);
       console.error('Error al crear maestro');
@@ -93,15 +91,11 @@ export class HomePage {
       // Leemos los datos de la base de datos
       const usuarios = await this.sqlite.read();
       this.usuarios = usuarios;
-  
-      console.log('Leído');
-      console.log(this.usuarios);
-  
+
       if (this.usuarios.length > 0) {
-        console.log('Se encontraron usuarios en la base de datos.');
         // Ejecutar createDefaultUsers() y createDefaultMaestros() solo si hay usuarios existentes
       } else {
-        console.log('No se encontraron usuarios en la base de datos.');
+        console.error('No se encontraron usuarios en la base de datos.');
         await this.createDefaultUsers();
         await this.createDefaultMaestros();
       }
@@ -116,8 +110,6 @@ export class HomePage {
       .readMaestros()
       .then((maestros: maestro[]) => {
         this.maestros = maestros;
-        console.log('Leido');
-        console.log(this.maestros);
       })
       .catch((err) => {
         console.error(err);
@@ -131,8 +123,6 @@ export class HomePage {
       .read()
       .then((usuarios: usuario[]) => {
         this.usuarios = usuarios;
-        console.log('Leido');
-        console.log(this.usuarios);
         usuarios.forEach((element) => {
           if (element.username === username && element.password === password) {
             loginUser = element;
@@ -145,7 +135,6 @@ export class HomePage {
         });
         
         this.auth.getLoggedUser().subscribe((user) => {
-          console.log(user); // Esto mostrará el usuario logueado actualmente
         });
       })
       .catch((err) => {
@@ -157,6 +146,5 @@ export class HomePage {
   logout() {
     this.auth.setLoggedUser(null);
     this.router.navigate(['/']);
-    console.log();
   }
 }

@@ -174,9 +174,7 @@ async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
 
   try {
     // Obtengo la base de datos
-    console.log('entra a atry sqlito');
     const dbName = await this.getDbName();
-    console.log('despues de getdb'+dbName);
     // Ejecutamos la sentencia
     return CapacitorSQLite.executeSet({
       database: dbName,
@@ -189,7 +187,6 @@ async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
         }
       ],transaction:true
     }).then((changes: capSQLiteChanges) => {
-      console.log('entra a then');
       if (this.isWeb) {
         CapacitorSQLite.saveToStore({ database: dbName });
       }
@@ -197,7 +194,7 @@ async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
       return changes;
     }).catch(err => Promise.reject(err))
   } catch (err) {
-    console.log('Error al crear voto sqlito');
+    console.error('Error al crear voto');
     console.error(err);
     throw err;
   }
@@ -297,7 +294,6 @@ async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
           const voto = response.values[index];
           votos.push(voto);
         }
-        console.log(votos);
         return votos;
       })
       .catch((err) => Promise.reject(err));
@@ -319,7 +315,6 @@ async createVoto(idUsuario:string, idMaestro:string, puntuacion:number){
         }
   
         for (let index = 0; index < response.values.length; index++) {
-          console.log()
           const foundVoto = response.values[index];
           votos.push(foundVoto);
         }
