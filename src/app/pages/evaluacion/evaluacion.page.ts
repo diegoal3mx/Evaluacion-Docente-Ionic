@@ -86,6 +86,7 @@ export class EvaluacionPage implements OnInit {
           // Sumamos el valor actual al total
           puntuacion += this.selectedValues[i];
         }
+        puntuacion/=5;
         await this.sqlite.createVoto(this.loggedUser.id, this.foundMaestro.id, puntuacion);
       console.log('Voto creado');
       var res = await this.sqlite.readVotos();

@@ -1,8 +1,34 @@
+<!-- 
+  Autores: 
+    Valeria Baeza Morales
+    Saul Iván Campos Solís
+    Diego Alejandro Juarez Maldonado
+    Marcos Uriel Resendiz Medina
+
+  Fecha: 016 Mayo 2023
+  Universidad La Salle Bajío
+  Materia: Desarrollo móvil con HTML
+-->
+
+<!--IONIC HEADER-->
+<ion-header [translucent]="true">
+  <ion-toolbar class="black-header">
+    <ion-title> Resultados </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="logout()"  fill="clear" class="custom-icon">
+        <ion-icon slot="icon-only" name="log-out-outline" ></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" [scrollY]="true">
 <div class="grafica" style="text-align:center">
   <apx-chart
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [xaxis]="chartOptions.xaxis"
+    [colors]="chartOptions.colors"
     [title]="chartOptions.title"
   ></apx-chart>
 </div>
+</ion-content>
