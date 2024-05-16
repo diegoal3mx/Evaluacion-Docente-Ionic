@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
           this.loggedUser = user;
         });
         this.readMaestros();
-        this.votos = await this.findVotosById(this.loggedUser.id);
+        this.votos = await this.sqlite.readVotos();
         if (!this.votos) {
           this.router.navigate(['dashboard'])
         }
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
 
   async checkVotos(){
     this.estados = []
-    this.votos = await this.sqlite.readVotos();;
+    this.votos = await this.sqlite.readVotos();
     console.log('maestros', this.maestros)
     for (var m of this.maestros) {
       console.log('maestro',m)
@@ -99,20 +99,7 @@ export class DashboardComponent implements OnInit {
     console.log()
   }
 
-  findVotosById(id: string): Promise<voto[]> {
-    return this.sqlite
-      .findVotosById(id)
-      .then((votos: voto[]) => {
-        //this.votos = votos;
-        this.votos = Array.isArray(votos) ? votos : [votos]; // Si votos es un array, lo asigna directamente, de lo contrario lo envuelve en un array
-        return this.votos;
-      })
-      .catch((err) => {
-        console.error(err);
-        console.error('Error al leer');
-        return null;
-      });
-  }
+  
 
   getEstadoBoton(maestro) {
     console.log('comparando voto.idmaestro con maestro.id')
